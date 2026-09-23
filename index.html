@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift Solutions Handyman | Reliable. Local. Professional.</title>
+<link rel="icon" href="Brand_assets/Logo_SS.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          royal: { DEFAULT: '#0047AB', 50:'#e6edf7', 100:'#c2d4ec', 400:'#1a5bc4', 500:'#0047AB', 600:'#003b8f', 700:'#002e70', 800:'#001f52', 900:'#001a3d' },
+          earthy: { DEFAULT: '#E67E22', 50:'#fdf1e6', 100:'#fadec2', 400:'#ef9847', 500:'#E67E22', 600:'#c8681a', 700:'#a35414' },
+          charcoal: { DEFAULT: '#333333', 400:'#4d4d4d', 600:'#262626', 700:'#1a1a1a' },
+          warm: { DEFAULT: '#F8F8F6', 100:'#ffffff', 200:'#f1f0ec' },
+        },
+        fontFamily: {
+          display: ['Montserrat', 'sans-serif'],
+          body: ['Montserrat', 'sans-serif'],
+        },
+        boxShadow: {
+          'brand': '0 20px 40px -12px rgba(0,71,171,0.25), 0 8px 16px -8px rgba(0,0,0,0.15)',
+          'brand-lg': '0 30px 60px -15px rgba(0,71,171,0.3), 0 10px 20px -10px rgba(230,126,34,0.15)',
+          'card': '0 10px 30px -10px rgba(51,51,51,0.15), 0 2px 6px -2px rgba(51,51,51,0.1)',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background-color: #F8F8F6; }
+  .tracking-tightest { letter-spacing: -0.03em; }
+
+  .noise-overlay {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+  }
+
+  .grain-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hero-gradient {
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,71,171,0.55) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 60% at 100% 100%, rgba(230,126,34,0.45) 0%, transparent 55%),
+      linear-gradient(160deg, #001a3d 0%, #002e70 45%, #0047AB 100%);
+  }
+
+  .btn-primary {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .btn-primary:hover { transform: translateY(-3px) scale(1.02); }
+  .btn-primary:active { transform: translateY(-1px) scale(0.99); }
+
+  .card-hover {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .card-hover:hover { transform: translateY(-6px); }
+
+  .img-tint {
+    position: relative;
+  }
+  .img-tint::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,26,61,0) 40%, rgba(0,26,61,0.75) 100%);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .img-tint img { display:block; }
+
+  .gallery-item {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gallery-item:hover { transform: translateY(-4px) scale(1.015); }
+
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute; left: 0; bottom: -4px; width: 0%; height: 2px;
+    background: #E67E22;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+
+  .service-icon-wrap {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s ease;
+  }
+  .service-card:hover .service-icon-wrap { transform: rotate(-6deg) scale(1.08); background-color: #E67E22; }
+  .service-card:hover .service-icon-wrap svg { stroke: white; }
+
+  a, button { outline-offset: 2px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #E67E22;
+    border-radius: 4px;
+  }
+
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .fade-up {
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .float-slow {
+    animation: floatSlow 6s ease-in-out infinite;
+  }
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  #mobile-menu { transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; }
+
+  .diagonal-clip {
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+  }
+
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  .reviews-track { scroll-snap-type: x mandatory; }
+  .review-card { scroll-snap-align: start; }
+
+  .carousel-arrow {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, opacity 0.3s ease;
+  }
+  .carousel-arrow:hover:not(:disabled) { transform: scale(1.08); background-color: #0047AB; }
+  .carousel-arrow:hover:not(:disabled) svg { stroke: white; }
+  .carousel-arrow:disabled { opacity: 0.35; cursor: default; }
+
+  .star-btn svg { transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.15s ease, stroke 0.15s ease; }
+  .star-btn:hover svg { transform: scale(1.15); }
+
+  #review-modal-backdrop { transition: opacity 0.3s ease; }
+  #review-modal-panel { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease; }
+
+  .admin-delete-btn {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease;
+  }
+  .admin-delete-btn:hover { transform: scale(1.1); background-color: #a3231b; }
+
+  .secret-admin-dot {
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+  }
+
+  .toast {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  }
+</style>
+</head>
+<body class="bg-warm text-charcoal antialiased">
+
+<!-- ================= NAV ================= -->
+<header id="top" class="fixed top-0 inset-x-0 z-50 bg-royal-900/95 backdrop-blur-sm border-b border-white/10">
+  <nav class="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 group">
+      <img src="Brand_assets/Logo_SS.png" alt="Swift Solutions Handyman logo" class="h-12 w-auto drop-shadow-lg transition-transform duration-500 group-hover:scale-105">
+    </a>
+    <div class="hidden md:flex items-center gap-9 text-warm-100 font-semibold text-sm tracking-wide uppercase">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#gallery" class="nav-link">Our Work</a>
+      <a href="#reviews" class="nav-link">Reviews</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <a href="tel:4352360230" class="btn-primary hidden md:inline-flex items-center gap-2 bg-earthy hover:bg-earthy-600 text-white font-bold text-sm px-6 py-3 rounded-full shadow-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      435-236-0230
+    </a>
+    <button id="menu-btn" class="md:hidden text-white p-2" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div id="mobile-menu" class="md:hidden max-h-0 overflow-hidden opacity-0 bg-royal-900 border-t border-white/10">
+    <div class="flex flex-col px-6 py-4 gap-4 text-warm-100 font-semibold uppercase text-sm">
+      <a href="#services" class="mobile-link py-1">Services</a>
+      <a href="#gallery" class="mobile-link py-1">Our Work</a>
+      <a href="#reviews" class="mobile-link py-1">Reviews</a>
+      <a href="#about" class="mobile-link py-1">About</a>
+      <a href="#contact" class="mobile-link py-1">Contact</a>
+      <a href="tel:4352360230" class="mt-1 inline-flex items-center justify-center gap-2 bg-earthy text-white font-bold px-5 py-3 rounded-full">Call 435-236-0230</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative hero-gradient diagonal-clip pt-40 pb-32 md:pt-48 md:pb-44 overflow-hidden">
+  <div class="absolute inset-0 grain-bg noise-overlay"></div>
+  <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-earthy/20 blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-royal-400/30 blur-3xl"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-center">
+    <div class="fade-up" style="animation-delay:0.05s;">
+      <p class="inline-flex items-center gap-2 text-earthy-100 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-earthy"></span> Serving your local community
+      </p>
+      <h1 class="font-display font-extrabold text-white text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tightest">
+        Your Home. <span class="text-earthy">Our Priority.</span>
+      </h1>
+      <p class="mt-6 text-lg text-warm-100/85 max-w-xl leading-[1.7]">
+        Swift Solutions Handyman delivers reliable, professional repairs and improvements &mdash; from small fixes to full room refreshes. Quality work, honest pricing, and lasting results for your home.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 bg-earthy hover:bg-earthy-600 text-white font-bold px-8 py-4 rounded-full shadow-brand-lg">
+          Get a Free Estimate
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="tel:4352360230" class="btn-primary inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold px-7 py-4 rounded-full backdrop-blur-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          435-236-0230
+        </a>
+      </div>
+      <div class="mt-12 flex flex-wrap gap-x-10 gap-y-4">
+        <div><p class="text-2xl font-extrabold text-white">100%</p><p class="text-xs uppercase tracking-widest text-warm-100/70">Satisfaction Focused</p></div>
+        <div><p class="text-2xl font-extrabold text-white">Local</p><p class="text-xs uppercase tracking-widest text-warm-100/70">Owner-Operated</p></div>
+        <div><p class="text-2xl font-extrabold text-white">Fast</p><p class="text-xs uppercase tracking-widest text-warm-100/70">Response Times</p></div>
+      </div>
+    </div>
+
+    <div class="relative fade-up" style="animation-delay:0.2s;">
+      <div class="relative rounded-3xl overflow-hidden shadow-brand-lg border-4 border-white/10 img-tint">
+        <img src="photos/Living_room_2.jpg" alt="Modern living room renovation by Swift Solutions Handyman" class="w-full h-[420px] md:h-[520px] object-cover">
+      </div>
+      <div class="absolute -bottom-8 -left-8 bg-white rounded-2xl shadow-brand p-5 w-56 float-slow hidden sm:block">
+        <p class="font-display font-extrabold text-royal text-lg leading-tight">"Small Fixes. Big Peace of Mind."</p>
+        <p class="text-xs text-charcoal-400 mt-2">&mdash; Tyler Young, Founder</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRUST STRIP ================= -->
+<section class="bg-royal-900 py-4 overflow-hidden">
+  <div class="relative flex whitespace-nowrap">
+    <div class="flex marquee-track gap-16 pr-16">
+      <span class="trust-item"></span>
+    </div>
+  </div>
+</section>
+<script>
+  const items = ['RELIABLE','LOCAL','PROFESSIONAL','INTERIOR PAINTING','FIXTURE REPLACEMENT','FURNITURE ASSEMBLY','MINOR ELECTRICAL','DOOR & WINDOW REPAIR','MOUNTING & INSTALLATION','DRYWALL REPAIR'];
+  const track = document.querySelector('.marquee-track');
+  const dot = '<span class="text-earthy mx-4">&#9670;</span>';
+  const html = items.map(i => `<span class="text-warm-100/70 font-bold text-sm tracking-widest">${i}</span>`).join(dot);
+  track.innerHTML = html + dot + html + dot;
+</script>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="py-24 md:py-32 bg-warm relative">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="max-w-2xl mx-auto text-center mb-16">
+      <p class="text-earthy-600 font-bold text-xs uppercase tracking-[0.2em] mb-3">What We Do</p>
+      <h2 class="font-display font-extrabold text-charcoal text-3xl sm:text-4xl lg:text-5xl tracking-tightest">Services Built Around Your Home</h2>
+      <p class="mt-5 text-charcoal-400 leading-[1.7]">From quick repairs to full-room improvements, Swift Solutions Handyman handles it with reliable craftsmanship and a professional touch.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- card template -->
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Interior Painting</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">Clean lines and lasting finishes that refresh any room in your home.</p>
+      </div>
+
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5.5L20 9l-4 4 1 5.5L12 16l-5 2.5 1-5.5-4-4 5.5-1.5z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Fixture Replacement</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">Faucets, lighting, and hardware swapped out quickly and correctly.</p>
+      </div>
+
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 9h16M9 4v16"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Furniture Assembly</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">Skip the instructions &mdash; we'll build it right the first time.</p>
+      </div>
+
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Minor Electrical</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">Outlets, switches, and small fixes handled safely and to code.</p>
+      </div>
+
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="7" width="8" height="14" rx="1"/><circle cx="7" cy="12" r=".5" fill="currentColor"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Door &amp; Window Repair</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">Sticking doors, drafty windows, and worn hardware made good as new.</p>
+      </div>
+
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Mounting &amp; Installation</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">TVs, shelving, mirrors and more &mdash; mounted level and secure.</p>
+      </div>
+
+      <div class="service-card card-hover bg-white rounded-2xl p-7 shadow-card border border-charcoal/5">
+        <div class="service-icon-wrap w-14 h-14 rounded-xl bg-royal-50 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-charcoal mb-2">Drywall Repair</h3>
+        <p class="text-sm text-charcoal-400 leading-relaxed">Holes, cracks, and dents patched seamlessly, ready to paint.</p>
+      </div>
+
+      <div class="service-card card-hover bg-gradient-to-br from-royal to-royal-700 rounded-2xl p-7 shadow-card flex flex-col justify-center">
+        <h3 class="font-display font-bold text-lg text-white mb-2">And So Much More</h3>
+        <p class="text-sm text-warm-100/80 leading-relaxed mb-4">Have a project that's not listed? Chances are, we can still help.</p>
+        <a href="#contact" class="inline-flex items-center gap-1.5 text-earthy-100 font-bold text-sm">Ask us about it
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="py-24 md:py-32 bg-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="relative order-2 lg:order-1">
+      <div class="grid grid-cols-5 grid-rows-6 gap-4 h-[520px]">
+        <div class="col-span-3 row-span-4 rounded-2xl overflow-hidden shadow-card img-tint">
+          <img src="photos/Kitchen.jpg" alt="Remodeled kitchen with stainless appliances" class="w-full h-full object-cover">
+        </div>
+        <div class="col-span-2 row-span-3 rounded-2xl overflow-hidden shadow-card img-tint">
+          <img src="photos/Resized_20210427_123319.jpg" alt="Cozy finished bedroom" class="w-full h-full object-cover">
+        </div>
+        <div class="col-span-2 row-span-3 rounded-2xl overflow-hidden shadow-card img-tint">
+          <img src="photos/IMG_5920.jpg" alt="Bright open entryway" class="w-full h-full object-cover">
+        </div>
+        <div class="col-span-3 row-span-2 rounded-2xl overflow-hidden shadow-card img-tint">
+          <img src="photos/Resized_20210526_162929.jpg" alt="Contemporary kitchen island" class="w-full h-full object-cover">
+        </div>
+      </div>
+      <div class="absolute -bottom-6 -right-6 bg-earthy text-white rounded-2xl shadow-brand px-6 py-5 hidden sm:block">
+        <p class="text-3xl font-display font-extrabold leading-none">5.0<span class="text-lg align-top">★</span></p>
+        <p class="text-xs uppercase tracking-widest mt-1 text-white/90">Client Satisfaction</p>
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <p class="text-earthy-600 font-bold text-xs uppercase tracking-[0.2em] mb-3">About Swift Solutions</p>
+      <h2 class="font-display font-extrabold text-charcoal text-3xl sm:text-4xl lg:text-5xl tracking-tightest leading-tight">Meet Tyler Young &mdash; Your Local Handyman</h2>
+      <p class="mt-6 text-charcoal-400 leading-[1.7]">
+        Swift Solutions Handyman is an owner-operated business built on a simple idea: your home deserves quality work and honest service. Every project, big or small, gets the same level of care and attention to detail.
+      </p>
+      <p class="mt-4 text-charcoal-400 leading-[1.7]">
+        From painting and repairs to installations and everyday fixes, Tyler brings reliable craftsmanship straight to your door &mdash; simple solutions, lasting results.
+      </p>
+
+      <div class="mt-9 grid sm:grid-cols-3 gap-6">
+        <div class="border-l-4 border-earthy pl-4">
+          <p class="font-display font-extrabold text-2xl text-royal">Reliable</p>
+          <p class="text-xs text-charcoal-400 mt-1">On time, every time</p>
+        </div>
+        <div class="border-l-4 border-earthy pl-4">
+          <p class="font-display font-extrabold text-2xl text-royal">Local</p>
+          <p class="text-xs text-charcoal-400 mt-1">Rooted in the community</p>
+        </div>
+        <div class="border-l-4 border-earthy pl-4">
+          <p class="font-display font-extrabold text-2xl text-royal">Professional</p>
+          <p class="text-xs text-charcoal-400 mt-1">Craftsmanship you can trust</p>
+        </div>
+      </div>
+
+      <a href="#contact" class="btn-primary mt-10 inline-flex items-center gap-2 bg-royal hover:bg-royal-600 text-white font-bold px-8 py-4 rounded-full shadow-brand">
+        Work With Us
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery" class="py-24 md:py-32 bg-warm-200 relative">
+  <div class="absolute inset-0 grain-bg noise-overlay"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="max-w-2xl mx-auto text-center mb-16">
+      <p class="text-earthy-600 font-bold text-xs uppercase tracking-[0.2em] mb-3">Our Work</p>
+      <h2 class="font-display font-extrabold text-charcoal text-3xl sm:text-4xl lg:text-5xl tracking-tightest">Recent Projects</h2>
+      <p class="mt-5 text-charcoal-400 leading-[1.7]">A glimpse at the quality and care that goes into every job, from full rooms to small details.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[180px] md:auto-rows-[220px]">
+      <div class="gallery-item col-span-2 row-span-2 rounded-2xl overflow-hidden shadow-card">
+        <img src="photos/Living_room_2.jpg" alt="Spacious living room with mountain view" class="w-full h-full object-cover">
+      </div>
+      <div class="gallery-item rounded-2xl overflow-hidden shadow-card">
+        <img src="photos/IMG_6665.jpg" alt="Spa-style bathroom remodel" class="w-full h-full object-cover">
+      </div>
+      <div class="gallery-item rounded-2xl overflow-hidden shadow-card">
+        <img src="photos/IMG_5842.jpg" alt="Custom closet organization build" class="w-full h-full object-cover">
+      </div>
+      <div class="gallery-item rounded-2xl overflow-hidden shadow-card">
+        <img src="photos/IMG_7598.jpg" alt="Finished home office with built-ins" class="w-full h-full object-cover">
+      </div>
+      <div class="gallery-item row-span-2 rounded-2xl overflow-hidden shadow-card">
+        <img src="photos/Resized952020112695105019.jpg" alt="Dark modern living room flooring" class="w-full h-full object-cover">
+      </div>
+      <div class="gallery-item col-span-2 rounded-2xl overflow-hidden shadow-card">
+        <img src="photos/Resized_20210526_162929.jpg" alt="Open concept kitchen with island" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews" class="py-24 md:py-32 bg-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+      <div class="max-w-xl">
+        <p class="text-earthy-600 font-bold text-xs uppercase tracking-[0.2em] mb-3">Customer Reviews</p>
+        <h2 class="font-display font-extrabold text-charcoal text-3xl sm:text-4xl lg:text-5xl tracking-tightest">What Our Neighbors Are Saying</h2>
+        <div class="mt-4 flex items-center gap-3">
+          <div id="reviews-average-stars" class="flex items-center gap-0.5"></div>
+          <p class="text-sm text-charcoal-400"><span id="reviews-average-value" class="font-bold text-charcoal"></span> &middot; <span id="reviews-count"></span> reviews</p>
+        </div>
+      </div>
+      <button id="open-review-modal" class="btn-primary self-start inline-flex items-center gap-2 bg-earthy hover:bg-earthy-600 text-white font-bold px-7 py-3.5 rounded-full shadow-brand shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Leave a Review
+      </button>
+    </div>
+
+    <div class="relative">
+      <div id="reviews-track" class="reviews-track no-scrollbar flex gap-6 overflow-x-auto scroll-smooth pb-2"></div>
+
+      <button id="reviews-prev" class="carousel-arrow hidden sm:flex absolute -left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-brand border border-charcoal/10 items-center justify-center" aria-label="Previous reviews">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button id="reviews-next" class="carousel-arrow hidden sm:flex absolute -right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-brand border border-charcoal/10 items-center justify-center" aria-label="Next reviews">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="sm:hidden flex justify-center gap-4 mt-6">
+      <button id="reviews-prev-mobile" class="carousel-arrow w-11 h-11 rounded-full bg-white shadow-brand border border-charcoal/10 flex items-center justify-center" aria-label="Previous reviews">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button id="reviews-next-mobile" class="carousel-arrow w-11 h-11 rounded-full bg-white shadow-brand border border-charcoal/10 flex items-center justify-center" aria-label="Next reviews">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEW MODAL ================= -->
+<div id="review-modal-backdrop" class="fixed inset-0 z-[70] hidden items-center justify-center bg-charcoal-700/70 backdrop-blur-sm p-4 opacity-0">
+  <div id="review-modal-panel" class="relative w-full max-w-lg bg-white rounded-3xl shadow-brand-lg p-7 md:p-9 max-h-[90vh] overflow-y-auto opacity-0 translate-y-6 scale-[0.97]">
+    <button id="close-review-modal" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-warm-200 hover:bg-earthy hover:text-white flex items-center justify-center transition-colors duration-300" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <p class="text-earthy-600 font-bold text-xs uppercase tracking-[0.2em] mb-2">Share Your Experience</p>
+    <h3 class="font-display font-extrabold text-2xl text-charcoal tracking-tightest mb-6">Leave a Review</h3>
+
+    <form id="review-form">
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Your Rating</label>
+        <div id="star-picker" class="flex items-center gap-1.5" data-rating="0">
+          <button type="button" class="star-btn p-1" data-value="1" aria-label="1 star"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-earthy fill-none" viewBox="0 0 24 24" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+          <button type="button" class="star-btn p-1" data-value="2" aria-label="2 stars"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-earthy fill-none" viewBox="0 0 24 24" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+          <button type="button" class="star-btn p-1" data-value="3" aria-label="3 stars"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-earthy fill-none" viewBox="0 0 24 24" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+          <button type="button" class="star-btn p-1" data-value="4" aria-label="4 stars"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-earthy fill-none" viewBox="0 0 24 24" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+          <button type="button" class="star-btn p-1" data-value="5" aria-label="5 stars"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-earthy fill-none" viewBox="0 0 24 24" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+          <span id="star-picker-label" class="ml-2 text-sm text-charcoal-400"></span>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <label for="review-name" class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Your Name</label>
+        <input id="review-name" type="text" placeholder="Jane Doe" class="w-full rounded-xl border border-charcoal/15 bg-warm px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-royal/40 focus:border-royal transition-shadow">
+      </div>
+
+      <div class="mt-6">
+        <label for="review-text" class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Your Review</label>
+        <textarea id="review-text" rows="4" placeholder="Tell others about your experience with Swift Solutions Handyman..." class="w-full rounded-xl border border-charcoal/15 bg-warm px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-royal/40 focus:border-royal transition-shadow resize-none"></textarea>
+      </div>
+
+      <div class="mt-6">
+        <label class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Add Photos <span class="normal-case font-medium text-charcoal-400/70">(up to 4)</span></label>
+        <div id="review-photo-grid" class="grid grid-cols-2 gap-3 max-w-xs">
+          <label class="review-photo-slot aspect-square rounded-xl border-2 border-dashed border-charcoal/20 hover:border-earthy flex items-center justify-center cursor-pointer bg-warm transition-colors duration-300 relative overflow-hidden" data-index="0">
+            <input type="file" accept="image/*" class="review-photo-input hidden" data-index="0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-charcoal-400" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </label>
+          <label class="review-photo-slot aspect-square rounded-xl border-2 border-dashed border-charcoal/20 hover:border-earthy flex items-center justify-center cursor-pointer bg-warm transition-colors duration-300 relative overflow-hidden" data-index="1">
+            <input type="file" accept="image/*" class="review-photo-input hidden" data-index="1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-charcoal-400" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </label>
+          <label class="review-photo-slot aspect-square rounded-xl border-2 border-dashed border-charcoal/20 hover:border-earthy flex items-center justify-center cursor-pointer bg-warm transition-colors duration-300 relative overflow-hidden" data-index="2">
+            <input type="file" accept="image/*" class="review-photo-input hidden" data-index="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-charcoal-400" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </label>
+          <label class="review-photo-slot aspect-square rounded-xl border-2 border-dashed border-charcoal/20 hover:border-earthy flex items-center justify-center cursor-pointer bg-warm transition-colors duration-300 relative overflow-hidden" data-index="3">
+            <input type="file" accept="image/*" class="review-photo-input hidden" data-index="3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-charcoal-400" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </label>
+        </div>
+      </div>
+
+      <p id="review-form-error" class="mt-4 text-sm text-red-600 font-semibold hidden"></p>
+
+      <button type="submit" class="btn-primary mt-7 w-full inline-flex items-center justify-center gap-2 bg-royal hover:bg-royal-600 text-white font-bold px-9 py-4 rounded-full shadow-brand">
+        Submit Review
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= CTA BANNER ================= -->
+<section class="relative py-20 bg-gradient-to-r from-royal-900 via-royal to-royal-700 overflow-hidden">
+  <div class="absolute inset-0 grain-bg noise-overlay"></div>
+  <div class="absolute -top-16 right-10 w-64 h-64 rounded-full bg-earthy/25 blur-3xl"></div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <h2 class="font-display font-extrabold text-white text-3xl sm:text-4xl tracking-tightest">Ready to Fix, Refresh, or Install?</h2>
+    <p class="mt-4 text-warm-100/80 leading-relaxed max-w-xl mx-auto">Reach out today for a free estimate. Reliable, local, professional solutions for your home &mdash; guaranteed.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a href="tel:4352360230" class="btn-primary inline-flex items-center gap-2 bg-earthy hover:bg-earthy-600 text-white font-bold px-8 py-4 rounded-full shadow-brand-lg">Call 435-236-0230</a>
+      <a href="#contact" class="btn-primary inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold px-8 py-4 rounded-full backdrop-blur-sm">Request a Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="py-24 md:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-5 gap-12">
+    <div class="lg:col-span-2">
+      <p class="text-earthy-600 font-bold text-xs uppercase tracking-[0.2em] mb-3">Get In Touch</p>
+      <h2 class="font-display font-extrabold text-charcoal text-3xl sm:text-4xl tracking-tightest leading-tight">Let's Talk About Your Project</h2>
+      <p class="mt-5 text-charcoal-400 leading-[1.7]">Tell us what you need and we'll get back to you promptly with a free, no-obligation estimate.</p>
+
+      <div class="mt-10 space-y-6">
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-charcoal-400 font-bold">Phone</p>
+            <a href="tel:4352360230" class="font-display font-bold text-lg text-charcoal hover:text-royal transition-colors">435-236-0230</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-charcoal-400 font-bold">Availability</p>
+            <p class="font-display font-bold text-lg text-charcoal">Mon &ndash; Sat, by appointment</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-charcoal-400 font-bold">Service Area</p>
+            <p class="font-display font-bold text-lg text-charcoal">Proudly serving the local community</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="lg:col-span-3 bg-warm rounded-3xl p-8 md:p-10 shadow-card border border-charcoal/5" onsubmit="return false;">
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Name</label>
+          <input id="name" type="text" placeholder="Your name" class="w-full rounded-xl border border-charcoal/15 bg-white px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-royal/40 focus:border-royal transition-shadow">
+        </div>
+        <div>
+          <label for="phone" class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Phone</label>
+          <input id="phone" type="tel" placeholder="(435) 000-0000" class="w-full rounded-xl border border-charcoal/15 bg-white px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-royal/40 focus:border-royal transition-shadow">
+        </div>
+      </div>
+      <div class="mt-6">
+        <label for="message" class="block text-xs font-bold uppercase tracking-widest text-charcoal-400 mb-2">Project Details</label>
+        <textarea id="message" rows="4" placeholder="Tell us a bit about what you need done..." class="w-full rounded-xl border border-charcoal/15 bg-white px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-royal/40 focus:border-royal transition-shadow resize-none"></textarea>
+      </div>
+      <button type="submit" class="btn-primary mt-7 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-royal hover:bg-royal-600 text-white font-bold px-9 py-4 rounded-full shadow-brand">
+        Send Request
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-royal-900 text-warm-100/80 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid md:grid-cols-3 gap-10 pb-12 border-b border-white/10">
+      <div>
+        <img src="Brand_assets/Logo_SS.png" alt="Swift Solutions Handyman" class="h-14 w-auto mb-4">
+        <p class="text-sm leading-relaxed max-w-xs">Reliable, local, professional solutions for your home. Small fixes, big peace of mind.</p>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-white uppercase text-sm tracking-widest mb-4">Services</h4>
+        <ul class="space-y-2 text-sm">
+          <li>Interior Painting</li>
+          <li>Fixture Replacement</li>
+          <li>Furniture Assembly</li>
+          <li>Minor Electrical</li>
+          <li>Door &amp; Window Repair</li>
+          <li>Mounting &amp; Installation</li>
+          <li>Drywall Repair</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-white uppercase text-sm tracking-widest mb-4">Contact</h4>
+        <ul class="space-y-3 text-sm">
+          <li><a href="tel:4352360230" class="hover:text-earthy transition-colors">435-236-0230</a></li>
+          <li>Tyler Young, Founder</li>
+          <li>Mon &ndash; Sat, by appointment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-warm-100/50">
+      <p class="flex items-center gap-2">
+        &copy; <span id="year"></span> Swift Solutions Handyman. All rights reserved.
+        <button id="secret-admin-btn" class="secret-admin-dot w-2 h-2 rounded-full bg-white/10 hover:bg-white/30" aria-label="Site admin" title=""></button>
+      </p>
+      <p>Reliable &bull; Local &bull; Professional</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] bg-charcoal-700 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-brand-lg opacity-0 translate-y-4 pointer-events-none"></div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  let menuOpen = false;
+  function closeMenu() {
+    menuOpen = false;
+    mobileMenu.style.maxHeight = '0px';
+    mobileMenu.style.opacity = '0';
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+      mobileMenu.style.opacity = '1';
+      menuBtn.setAttribute('aria-expanded', 'true');
+    } else {
+      closeMenu();
+    }
+  });
+  document.querySelectorAll('.mobile-link').forEach(el => el.addEventListener('click', closeMenu));
+</script>
+
+<!-- ================= REVIEWS ENGINE ================= -->
+<script>
+(function () {
+  const STORAGE_KEY = 'ssh_reviews_v2';
+  const ADMIN_PASSCODE = 'swift2024';
+
+  const STAR_PATH = '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>';
+
+  let adminMode = false;
+  let selectedRating = 0;
+  let pendingPhotos = [null, null, null, null];
+
+  function loadReviews() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return [];
+  }
+
+  function saveReviews(reviews) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+    } catch (e) {
+      showToast("Couldn't save review — storage is full.");
+    }
+  }
+
+  let reviews = loadReviews();
+
+  function starsMarkup(rating, size) {
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      const filled = i <= Math.round(rating);
+      html += `<svg xmlns="http://www.w3.org/2000/svg" class="${size} ${filled ? 'fill-earthy stroke-earthy' : 'fill-none stroke-charcoal-400/40'}" viewBox="0 0 24 24" stroke-width="1.8">${STAR_PATH}</svg>`;
+    }
+    return html;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderAverage() {
+    const count = reviews.length;
+    const avg = count ? reviews.reduce((s, r) => s + r.rating, 0) / count : 0;
+    document.getElementById('reviews-average-stars').innerHTML = starsMarkup(avg, 'w-5 h-5');
+    document.getElementById('reviews-average-value').textContent = count ? avg.toFixed(1) : '—';
+    document.getElementById('reviews-count').textContent = count;
+  }
+
+  function renderReviews() {
+    const track = document.getElementById('reviews-track');
+    if (!reviews.length) {
+      track.innerHTML = `
+        <div class="w-full flex flex-col items-center text-center py-16 px-6 rounded-2xl border-2 border-dashed border-charcoal/15 bg-warm">
+          <div class="w-14 h-14 rounded-full bg-royal-50 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 stroke-royal" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="font-display font-bold text-charcoal text-lg">No reviews yet</p>
+          <p class="mt-1.5 text-sm text-charcoal-400 max-w-xs">Be the first to share your experience with Swift Solutions Handyman.</p>
+        </div>`;
+      renderAverage();
+      return;
+    }
+
+    track.innerHTML = reviews.map(r => {
+      const imagesHtml = r.images && r.images.length
+        ? `<div class="mt-4 grid grid-cols-2 gap-1.5">${r.images.slice(0, 4).map(src =>
+            `<div class="aspect-square rounded-lg overflow-hidden bg-warm-200"><img src="${src}" alt="Customer photo from ${escapeHtml(r.name)}" class="review-photo-thumb w-full h-full object-cover cursor-pointer" data-src="${src}"></div>`
+          ).join('')}</div>`
+        : '';
+
+      const initial = escapeHtml(r.name.trim().charAt(0).toUpperCase() || '?');
+
+      return `
+      <article class="review-card relative shrink-0 snap-start w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-warm rounded-2xl p-6 shadow-card border border-charcoal/5 flex flex-col">
+        ${adminMode ? `<button class="admin-delete-btn absolute -top-3 -right-3 w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shadow-brand" data-id="${r.id}" aria-label="Delete review from ${escapeHtml(r.name)}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>` : ''}
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-royal text-white font-display font-bold flex items-center justify-center text-sm shrink-0">${initial}</div>
+          <div>
+            <p class="font-display font-bold text-charcoal leading-tight">${escapeHtml(r.name)}</p>
+            <p class="text-xs text-charcoal-400">${escapeHtml(r.date)}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-0.5 mt-3">${starsMarkup(r.rating, 'w-4 h-4')}</div>
+        <p class="mt-3 text-sm text-charcoal-400 leading-[1.7] flex-1">${escapeHtml(r.text)}</p>
+        ${imagesHtml}
+      </article>`;
+    }).join('');
+
+    renderAverage();
+  }
+
+  // ---------- Carousel ----------
+  const track = document.getElementById('reviews-track');
+  function scrollByPage(dir) {
+    const card = track.querySelector('.review-card');
+    const gap = 24;
+    const amount = card ? (card.getBoundingClientRect().width + gap) : track.clientWidth;
+    track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+  }
+  ['reviews-prev', 'reviews-prev-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => scrollByPage(-1)));
+  ['reviews-next', 'reviews-next-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => scrollByPage(1)));
+
+  // ---------- Lightbox ----------
+  track.addEventListener('click', (e) => {
+    const thumb = e.target.closest('.review-photo-thumb');
+    if (!thumb) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[90] bg-charcoal-700/90 backdrop-blur-sm flex items-center justify-center p-6 cursor-zoom-out';
+    overlay.innerHTML = `<img src="${thumb.dataset.src}" class="max-w-full max-h-full rounded-xl shadow-brand-lg">`;
+    overlay.addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+  });
+
+  // ---------- Admin delete ----------
+  track.addEventListener('click', (e) => {
+    const btn = e.target.closest('.admin-delete-btn');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const target = reviews.find(r => r.id === id);
+    if (!target) return;
+    if (!confirm(`Delete this review from ${target.name}?`)) return;
+    reviews = reviews.filter(r => r.id !== id);
+    saveReviews(reviews);
+    renderReviews();
+    showToast('Review deleted.');
+  });
+
+  // ---------- Toast ----------
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translate(-50%, 0)';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translate(-50%, 1rem)';
+    }, 2600);
+  }
+
+  // ---------- Secret admin ----------
+  document.getElementById('secret-admin-btn').addEventListener('click', () => {
+    if (adminMode) {
+      adminMode = false;
+      renderReviews();
+      showToast('Admin mode off.');
+      return;
+    }
+    const code = prompt('Enter admin passcode:');
+    if (code === null) return;
+    if (code === ADMIN_PASSCODE) {
+      adminMode = true;
+      renderReviews();
+      showToast('Admin mode on — click the red icon on a review to delete it.');
+    } else {
+      showToast('Incorrect passcode.');
+    }
+  });
+
+  // ---------- Review modal ----------
+  const backdrop = document.getElementById('review-modal-backdrop');
+  const panel = document.getElementById('review-modal-panel');
+  const openBtn = document.getElementById('open-review-modal');
+  const closeBtn = document.getElementById('close-review-modal');
+  const form = document.getElementById('review-form');
+  const errorEl = document.getElementById('review-form-error');
+  const starPicker = document.getElementById('star-picker');
+  const starLabel = document.getElementById('star-picker-label');
+
+  function openModal() {
+    backdrop.classList.remove('hidden');
+    backdrop.classList.add('flex');
+    requestAnimationFrame(() => {
+      backdrop.style.opacity = '1';
+      panel.style.opacity = '1';
+      panel.style.transform = 'translateY(0) scale(1)';
+    });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    backdrop.style.opacity = '0';
+    panel.style.opacity = '0';
+    panel.style.transform = 'translateY(1.5rem) scale(0.97)';
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+    }, 300);
+  }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !backdrop.classList.contains('hidden')) closeModal(); });
+
+  function setRating(value) {
+    selectedRating = value;
+    starPicker.dataset.rating = value;
+    starPicker.querySelectorAll('.star-btn svg').forEach((svg, i) => {
+      const fill = (i + 1) <= value;
+      svg.classList.toggle('fill-earthy', fill);
+      svg.classList.toggle('fill-none', !fill);
+    });
+    starLabel.textContent = value ? `${value} / 5` : '';
+  }
+  starPicker.querySelectorAll('.star-btn').forEach(btn => {
+    btn.addEventListener('click', () => setRating(parseInt(btn.dataset.value, 10)));
+  });
+
+  function resetPhotoSlot(index) {
+    pendingPhotos[index] = null;
+    const slot = document.querySelector(`.review-photo-slot[data-index="${index}"]`);
+    slot.style.backgroundImage = '';
+    slot.classList.remove('has-photo');
+    slot.innerHTML = `<input type="file" accept="image/*" class="review-photo-input hidden" data-index="${index}">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-charcoal-400" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+    bindPhotoInput(slot.querySelector('.review-photo-input'));
+  }
+
+  function bindPhotoInput(input) {
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (!file) return;
+      const index = parseInt(input.dataset.index, 10);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        pendingPhotos[index] = e.target.result;
+        const slot = document.querySelector(`.review-photo-slot[data-index="${index}"]`);
+        slot.classList.add('has-photo');
+        slot.innerHTML = `
+          <img src="${e.target.result}" class="w-full h-full object-cover">
+          <button type="button" class="remove-photo-btn absolute top-1 right-1 w-6 h-6 rounded-full bg-charcoal-700/80 text-white flex items-center justify-center" data-index="${index}" aria-label="Remove photo">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>`;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.querySelectorAll('.review-photo-input').forEach(bindPhotoInput);
+
+  document.getElementById('review-photo-grid').addEventListener('click', (e) => {
+    const removeBtn = e.target.closest('.remove-photo-btn');
+    if (removeBtn) {
+      e.preventDefault();
+      resetPhotoSlot(parseInt(removeBtn.dataset.index, 10));
+    }
+  });
+
+  function resetForm() {
+    form.reset();
+    setRating(0);
+    for (let i = 0; i < 4; i++) resetPhotoSlot(i);
+    errorEl.classList.add('hidden');
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('review-name').value.trim();
+    const text = document.getElementById('review-text').value.trim();
+
+    if (!name || !text || selectedRating < 1) {
+      errorEl.textContent = 'Please add your name, a star rating, and a short review.';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+
+    const images = pendingPhotos.filter(Boolean);
+
+    reviews.unshift({
+      id: 'r' + Date.now(),
+      name,
+      rating: selectedRating,
+      date: 'Just now',
+      text,
+      images
+    });
+    saveReviews(reviews);
+    renderReviews();
+    closeModal();
+    resetForm();
+    showToast('Thanks for your review!');
+    track.scrollTo({ left: 0, behavior: 'smooth' });
+  });
+
+  renderReviews();
+})();
+</script>
+</body>
+</html>
